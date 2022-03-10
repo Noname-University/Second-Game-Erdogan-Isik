@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Helpers;
 
-public class Player : MonoBehaviour
+public class Player : MonoSingleton<Player>
 {
     [SerializeField]
     private float speed;
