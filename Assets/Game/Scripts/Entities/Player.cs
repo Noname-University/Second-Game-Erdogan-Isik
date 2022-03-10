@@ -11,11 +11,11 @@ public class Player : MonoSingleton<Player>
     [SerializeField]
     private float fireTime;
 
-    [SerializeField]
-    private GameObject missile;
+    private MissileController missileController;
     
     private void Start() 
     {
+        missileController = GetComponent<MissileController>();
         StartCoroutine(Fire());
     }
 
@@ -35,7 +35,7 @@ public class Player : MonoSingleton<Player>
 
     private IEnumerator Fire()
     {
-        Instantiate(missile, transform.position,Quaternion.identity);
+        missileController.Fire();
         yield return new WaitForSeconds(fireTime);
         StartCoroutine(Fire());
     }

@@ -13,7 +13,7 @@ public class Missile : MonoBehaviour
 
         if(Vector3.Distance(transform.position, Player.Instance.transform.position) > 130)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
