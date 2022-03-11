@@ -34,6 +34,14 @@ public class Player : MonoSingleton<Player>
         Movement();
     }
 
+    private void OnTriggerEnter(Collider other) {
+        var collectable = other.GetComponent<ICollectable>();
+        if (collectable != null)
+        {
+            collectable.Collect();
+        }
+    }
+
     private IEnumerator Fire()
     {
         missileController.Fire();
