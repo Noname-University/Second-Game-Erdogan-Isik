@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Helpers;
+using UnityEngine;
 
 public class Player : MonoSingleton<Player>
 {
@@ -13,14 +13,35 @@ public class Player : MonoSingleton<Player>
 
     private MissileController missileController;
     
+    private float boundX;
+    private float boundY;
+    
+    private void Awake() {
+        boundX = Camera.main.orthographicSize/2-7;
+        boundY = Camera.main.orthographicSize-7;
+
+        missileController = GetComponent<MissileController>();
+    }
+
     private void Start() 
     {
-        missileController = GetComponent<MissileController>();
+        
         StartCoroutine(Fire());
     }
 
     private void Update()
     {
+        Movement();
+    }
+
+    private IEnumerator Fire()
+    {
+        missileController.Fire();
+        yield return new WaitForSeconds(fireTime);
+        StartCoroutine(Fire());
+    }
+
+    private void Movement(){
         if(Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -30,13 +51,13 @@ public class Player : MonoSingleton<Player>
                 0,
                 touch.deltaPosition.y * Time.deltaTime * speed
             );
-        }
-    }
 
-    private IEnumerator Fire()
-    {
-        missileController.Fire();
-        yield return new WaitForSeconds(fireTime);
-        StartCoroutine(Fire());
+            transform.position = new Vector3
+            (
+                Mathf.Clamp(transform.position.x,-boundX,+boundX),
+                0,
+                Mathf.Clamp(transform.position.z,-boundY,0)
+            );
+        }
     }
 }
