@@ -15,6 +15,21 @@ public class Player : MonoSingleton<Player>
     
     private float boundX;
     private float boundY;
+
+    public float FireTime 
+    { 
+        get
+        {
+            return fireTime;
+        } 
+        set
+        {
+            if (value > 0)
+            {
+                fireTime=value;
+            }
+        }
+    }
     
     private void Awake() {
         boundX = Camera.main.orthographicSize/2-7;
@@ -25,7 +40,6 @@ public class Player : MonoSingleton<Player>
 
     private void Start() 
     {
-        
         StartCoroutine(Fire());
     }
 
