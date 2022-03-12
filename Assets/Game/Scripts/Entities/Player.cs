@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
 
-public class Player : MonoSingleton<Player>
+public class Player : MonoSingleton<Player>,IKillable
 {
     [SerializeField]
     private float speed;
@@ -81,5 +81,15 @@ public class Player : MonoSingleton<Player>
                 Mathf.Clamp(transform.position.z,-boundY,0)
             );
         }
+    }
+
+    public void Kill()
+    {
+        
+    }
+
+    public void TakeHit(float hit)
+    {
+        
     }
 }
