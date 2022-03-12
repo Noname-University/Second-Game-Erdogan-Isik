@@ -7,6 +7,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private EnemyLines[] lines;
 
+    [SerializeField]
+    private Transform enemyParent;
+
     private void Start() 
     {
         var orthographic = Camera.main.orthographicSize;
@@ -20,7 +23,7 @@ public class EnemyController : MonoBehaviour
                         0,
                         orthographic + lines[i].offset.y * (i + 1)
                     ),
-                    Quaternion.identity
+                    Quaternion.identity,enemyParent
                 );
                 enemy.transform.eulerAngles = new Vector3(0,180,0);
             }
